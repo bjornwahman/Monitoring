@@ -10,15 +10,16 @@ param(
 $event = @()
 $event = Get-EventLog -LogName $log -EntryType Error -Source $source -Message *$message* | Select -ExpandProperty Message
 #$eventerror = $event | out-string
-$eventerror = [system.String]::Join(" | ", $event)
+#$eventerror = [system.String]::Join(" | ", $event)
     if ($event -ne $null)
     {
+    $eventerror = [system.String]::Join(" | ", $event)
     $statuscode=2
     Write-Host "CRITICAL: there is errors in the log $log, $eventerror"
     }
     else 
     {
-    Write-Host "OK: all is well in monitoring town, grab a cofee and relax"
+    Write-Host "OK: all is well in monitoring town, grab a covfefe and relax"
     $statuscode=0
     
     }
