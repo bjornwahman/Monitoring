@@ -1,3 +1,7 @@
+# eventlog check 2020-01-31 Björn Wahman
+# Reference:
+# Get-EventLog -LogName Application -Source Outlook | Where-Object {$_.EventID -eq 63} | Select-Object -Property Source, EventID, InstanceId, Message
+#
 param(
 [string]$log = "System",
 [string]$source = "Tcpip",
@@ -6,11 +10,11 @@ param(
 $event = @()
 $event = Get-EventLog -LogName $log -EntryType Error -Source $source -Message *$message* | Select -ExpandProperty Message
 #$eventerror = $event | out-string
-$eventerror = [system.String]::Join(" , ", $event)
+$eventerror = [system.String]::Join(" | ", $event)
     if ($event -ne $null)
     {
     $statuscode=2
-    Write-Host "CRITICAL: there is errors in ya eventlogg man, $eventerror"
+    Write-Host "CRITICAL: there is errors in the log $log, $eventerror"
     }
     else 
     {
