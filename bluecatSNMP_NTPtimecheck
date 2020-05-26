@@ -25,9 +25,9 @@ $bcnNtpSysRefTime = Invoke-SnmpGet -IpAddress 0.0.0.0 -Community "SECRET" -Versi
      
      # räkna ut om tidsynk är större än 2 timmar.
      If ($dateminus2hour -gt $NtpSysRefTime) { 
-     Write-Host "CRITICAL: Tidsynk efter, senaste synk var $NtpSysRefTime"
-     }
-     else
-     {
-     Write-Host "OK: tidsynk inom 2 timmar, senaste synk var $NtpSysRefTime"
-     }
+          Write-Host "CRITICAL: Tidsynk efter, senaste synk var $NtpSysRefTime"
+          }
+          else
+          {
+          Write-Host "OK: tidsynk inom 2 timmar, senaste synk var $NtpSysRefTime"
+          }
