@@ -1,0 +1,33 @@
+# Install-Module -Name Proxx.SNMP
+# skapa en funktion för epochdate ifrån sidan  https://www.epochconverter.com/#tools
+
+Function get-epochDate ($epochDate) { [timezone]::CurrentTimeZone.ToLocalTime(([datetime]'1/1/1970').AddSeconds($epochDate)) }
+
+# hämta värdet ifrån SNMP OID via snmp
+$bcnNtpSysRefTime = Invoke-SnmpGet -IpAddress 0.0.0.0 -Community "SECRET" -Version Ver2 -Oid ".1.3.6.1.4.1.13315.3.1.4.2.2.7.0"
+
+     # Städa upp output
+     $bcnNtpSysRefTime = $bcnNtpSysRefTime.Value
+     $bcnNtpSysRefTime = $bcnNtpSysRefTime.replace(' ','')
+     $var = $bcnNtpSysRefTime.substring(0,8)
+
+     # konvertera från hex till decimal
+     $vardecimal = [uint32]"0x$var"
+
+     # ta decimalvärde minus epochsekunder (2208988800)
+     $vardecimal = $vardecimal-2208988800
+     
+     # Kör funktion get-epochdate
+     $NtpSysRefTime = get-epochDate $vardecimal
+
+     # skapa en variabel med dagens datum/tid minus 2 timmar
+     $dateminus2hour = (Get-Date $date).AddHours(-2)
+     
+     # räkna ut om tidsynk är större än 2 timmar.
+     If ($dateminus2hour -gt $NtpSysRefTime) { 
+     Write-Host "CRITICAL: Tidsynk efter, senaste synk var $NtpSysRefTime"
+     }
+     else
+     {
+     Write-Host "OK: tidsynk inom 2 timmar, senaste synk var $NtpSysRefTime"
+     }
