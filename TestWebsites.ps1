@@ -8,7 +8,10 @@ $sucess = foreach ($s in $servers) {
     catch { 
     $err += "$s, An error occurred:"
     Write-Host $_ -ForegroundColor Red
+    Continue
      }
+     
+   
     $status = $alive.StatusCode
     $hostname = $alive.StatusDescription
     Write-Host "Result, $status, $hostname" -ForegroundColor Green
