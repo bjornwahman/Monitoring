@@ -8,7 +8,7 @@ $texttomanipulate = $texttomanipulate.TrimEnd("The BOFH-style excuse generator b
 $texttomanipulate = $texttomanipulate.TrimStart('"The Bastard Operator From Hell"-style excuse server.')
 $texttomanipulate = $texttomanipulate -replace ".*:"
 $texttomanipulate = $texttomanipulate.Trim()
-$texttomanipulate | Out-File -append C:\trove\log.txt
+#$texttomanipulate | Out-File -append C:\trove\log.txt
 Start-Sleep -s 5
 $texttomanipulate
 }
