@@ -1,4 +1,4 @@
-$cert = (Get-ChildItem -Path \\s002af22\UserData001_Hemkat$\bjowah0202\*.cer)
+$cert = (Get-ChildItem -Path \\share$\user\*.cer)
 
 foreach ($c in $cert){
 $cer = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
