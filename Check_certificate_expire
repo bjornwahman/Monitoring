@@ -8,7 +8,7 @@ $cer.Import("$c")
 $certexpire = $cer.NotAfter.AddDays(-30)
 $date = Get-Date 
 # Test datum string
-#$date = [DateTime]"01/12/2022 15:02:26"
+# $date = [DateTime]"01/12/2022 15:02:26"
      $compare = ($certexpire) -lt ($date)
 
         if ($compare -eq $false) {
